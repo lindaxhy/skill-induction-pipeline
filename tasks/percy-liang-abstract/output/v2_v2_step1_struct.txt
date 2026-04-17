@@ -1,0 +1,50 @@
+## Structural Analysis
+
+---
+
+**¶1 — Motivation / Regime Setup**
+- *Summary:* Establishes the data-constrained, compute-rich pre-training regime and frames synthetic data augmentation as underexplored for modeling the original web distribution (as opposed to format transformation or downstream alignment).
+- *Quantitative claims / named concepts:* None specific; references to rephrasing, quality filtering, downstream-task proximity as existing uses of synthetic data.
+- *Role:* **Regime/setup + gap identification**
+
+---
+
+**¶2 — Operating Regime and Experimental Setup**
+- *Summary:* Specifies the exact experimental regime (asymptotically infinite compute), model scale, data budget, and the external generator used; also pre-empts the distillation confound.
+- *Quantitative claims / named concepts:* 300M parameter model, 200M real tokens of web text, unlimited training compute, Llama 3.1 8B Instruct as generator.
+- *Role:* **Regime/setup (detailed constraints)**
+
+---
+
+**¶3 — Main Finding 1: Simple Rephrasing**
+- *Summary:* Shows that mixing rephrases with real data improves i.i.d. validation loss, with loss plateauing near 3.41 at 32 rephrases vs. baseline 3.55, and translates to downstream gains.
+- *Quantitative claims / named concepts:* Loss plateaus at 3.41 (32 rephrases) vs. 3.55 baseline; 1.48× data efficiency; 5% average accuracy improvement on downstream classification benchmarks.
+- *Role:* **Main finding (baseline synthetic method)**
+
+---
+
+**¶4 — Intervention: Megadocument Perspective**
+- *Summary:* Introduces the core conceptual contribution — treating synthetic generations as a single long megadocument rather than shuffled independent documents — and proposes two instantiations: stitched rephrasing and latent thoughts.
+- *Quantitative claims / named concepts:* No numbers; named methods: "stitching" (inspired by In-context Pre-training), "latent thoughts" (inserting rationales between document chunks).
+- *Role:* **Main intervention / method introduction**
+
+---
+
+**¶5 — Main Finding 2: Megadocument Methods**
+- *Summary:* Both megadoc methods outperform simple rephrasing on i.i.d. loss, long-context loss, and downstream benchmarks, with better scaling behavior under generation count.
+- *Quantitative claims / named concepts:* Stitched rephrasing: 1.64× data efficiency; latent thoughts: 1.80× data efficiency (both at 32 generations); simple rephrasing baseline: 1.48×; 6% and 9% downstream accuracy improvements over real-data-only baseline; long-context validation on arXiv CS papers.
+- *Role:* **Main finding (megadoc methods, headline results)**
+
+---
+
+**¶6 — Extension: Composability with Ensembling**
+- *Summary:* All three synthetic data methods compose additively with ensembling (an already data-efficient strategy), while self-distillation does not, establishing a qualitatively unique benefit of the paper's algorithms.
+- *Quantitative claims / named concepts:* No specific numbers; self-distillation named as a non-composing alternative; ensembling from Kim et al. (2025).
+- *Role:* **Extension / downstream validation**
+
+---
+
+**¶7 — Open-Source Note**
+- *Summary:* States that runs and code are publicly released.
+- *Quantitative claims / named concepts:* WandB, GitHub.
+- *Role:* **Open-source note (to be dropped in abstract)**

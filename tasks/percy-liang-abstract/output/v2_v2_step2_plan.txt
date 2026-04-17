@@ -1,0 +1,9 @@
+| Abstract Sentence # | Source intro paragraph(s) | Transformation | Content to preserve |
+|---|---|---|---|
+| 1 | ¶1.s1, ¶1.s4 | COMPRESSED | "compute grows considerably faster than web text," synthetic data augmentation underexplored for modeling original data distribution, core problem of pre-training |
+| 2 | ¶2.s1–s2 | COMPRESSED | asymptotically infinite compute regime, 300M parameter model, 200M real tokens, unlimited training compute |
+| 3 | ¶3.s1–s3 | SYNTHESIZED | rephrasing improves i.i.d. loss despite different distribution, 3.41 vs 3.55 at 32 rephrases, 1.48× data efficiency, 5% downstream accuracy improvement |
+| 4 | ¶4.s1–s2 | REFRAMED | megadocument perspective: synthetic generations as single long document rather than shuffled independent documents; two methods: stitched rephrasing and latent thoughts |
+| 5 | ¶5.s1–s4 | SYNTHESIZED | both megadoc methods outperform simple rephrasing on i.i.d. and long-context loss; stitched rephrasing 1.64×, latent thoughts 1.80× data efficiency at 32 generations; less plateauing; 6% and 9% downstream accuracy improvements |
+| 6 | ¶6.s1–s2 | SYNTHESIZED | all three methods compose with ensembling; self-distillation does not compose, establishing qualitatively unique benefit |
+| 7 | ¶1–¶6 overall | NOVEL | broad take-home: synthetic megadocs enable scalable, data-efficient pre-training improvements beyond format transformation |

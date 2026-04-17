@@ -1,0 +1,31 @@
+## Step 1: Content Planning
+
+**Main research question / problem setting**
+- Whether synthetic data augmentation can improve i.i.d. validation loss on the original web text distribution (not just reformat data for quality or downstream tasks), under the asymptotically infinite compute regime with fixed real data (200M tokens, 300M parameter models)
+
+**Key experimental setup details**
+- 300M parameter student models; 200M real tokens of web text; unlimited training compute (infinite compute regime)
+- External synthetic data generator: Llama 3.1 8B Instruct
+- Baseline: real data only, i.i.d. validation loss of 3.55
+- Comparison points: 32 rephrases per document as the canonical generation count
+
+**Headline quantitative results**
+- Simple rephrasing (with tuned mixing and epoching): loss plateaus near 3.41 at 32 rephrases vs. baseline 3.55; $1.48\times$ data efficiency improvement
+- Stitched rephrasing (megadoc method 1): $1.64\times$ data efficiency at 32 generations
+- Latent thoughts (megadoc method 2): $1.80\times$ data efficiency at 32 generations
+- Both megadoc methods show less plateauing under generation count than simple rephrasing
+
+**Secondary findings / analyses**
+- Megadocs improve long-context loss (e.g., on recent arXiv CS papers) more pronouncedly than simple rephrasing
+- Megadoc methods show less saturation as generation count increases, suggesting better scaling behavior
+- Self-distillation does not compose with ensembling, unlike the three main synthetic data algorithms
+- Ablations suggest improvements are not purely distillation artifacts
+
+**Downstream validation results**
+- Simple rephrasing: +5% average accuracy on common-sense/science reasoning benchmarks
+- Stitched rephrasing: +6% average accuracy over real-data-only baseline
+- Latent thoughts: +9% average accuracy over real-data-only baseline
+- All three methods compose with ensembling (an already data-efficient strategy)
+
+**Closing claim / implication**
+- Synthetic megadocuments are a scalable, composable approach to data-efficient pre-training that improves both i.i.d. and long-context modeling of the original web distribution, with gains that increase with more synthetic generations
