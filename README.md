@@ -21,8 +21,6 @@ The pipeline is chosen by two independent axes.
 |-------------|-------------|
 | Examples with explicit scores or category labels (essays + grades, resumes + ratings) | **S** |
 | A collection of examples you consider representative — no numeric labels | **E** |
-| Preference pairs (A was better than B, from A/B tests or arena battles) | **E** (treat as curated demonstrations) |
-| Behavioral logs (clicks, engagement, accepts) | **E** (treat top-K engaged items as curated examples) |
 
 ### Output type — what the induced skill will do
 
