@@ -2,8 +2,10 @@
 
 Assemble a taste model into a complete, deployable skill file. Produces either a discriminative skill (scoring, classification, filtering) or a generative skill (style-matched content generation).
 
-**Input:** Taste model from labeled-inducer or unlabeled-inducer + output type (`discriminative` or `generative`)  
+**Input:** Taste model from labeled-inducer or unlabeled-inducer + output type (`discriminative` or `generative`)
 **Output:** Skill file draft (markdown, ready to use as system prompt)
+
+Purely templated — no LLM call. The assembler's job is to render the taste model into the target template.
 
 ---
 
@@ -11,11 +13,13 @@ Assemble a taste model into a complete, deployable skill file. Produces either a
 
 Every skill file — discriminative or generative — must contain all three:
 
-| Ingredient | What it provides |
-|------------|-----------------|
-| **Features** | Explicit criteria or style patterns the model uses to reason |
-| **Prototypes** | Annotated examples that ground abstract criteria in concrete text |
-| **Tools** | Step-by-step instructions, output format, computation rules, parsing |
+
+| Ingredient     | What it provides                                                     |
+| -------------- | -------------------------------------------------------------------- |
+| **Features**   | Explicit criteria or style patterns the model uses to reason         |
+| **Prototypes** | Annotated examples that ground abstract criteria in concrete text    |
+| **Tools**      | Step-by-step instructions, output format, computation rules, parsing |
+
 
 Do not omit any ingredient. Prototypes without Features leave the model without criteria. Features without Prototypes leave criteria unanchored. Tools without the other two leave the model without judgment.
 
@@ -98,22 +102,14 @@ Use when: `output_type = generative` (style-matched content generation)
 [FULL text]
 **Style features present:** [annotation citing specific mechanisms by name]
 
-## Counter-examples                           ← PROTOTYPES (contrast)
-[Include if negatives were collected]
-
-### Counter-example K
-[FULL text]
-**What it lacks:** [annotation — which mechanism is absent, what the author did instead]
-
 ## Generation Instructions                    ← TOOLS
 1. Study the fingerprint, especially the unique mechanisms.
 2. Before writing, choose one mechanism from section 5 to anchor your piece.
 3. Draw on *patterns* from the reference examples, not specific words — invent new content.
 4. Emotion is always carried by objects. Never state it directly.
-5. Check your draft against the counter-examples: if your draft could appear there, revise.
-[6. Target length: ~[N] words.]  ← Include ONLY if induction/eval length difference < 20%.
+[5. Target length: ~[N] words.]  ← Include ONLY if induction/eval length difference < 20%.
     Omit if lengths differ by more — wrong anchor causes systematic ROUGE drop (~0.038).
-7. Output only the generated content, no explanation or preamble.
+6. Output only the generated content, no explanation or preamble.
 ```
 
 ---
@@ -132,4 +128,4 @@ Signal E → discriminative or generative (from config.md)
 
 ## Output
 
-Write the assembled skill to `output/<task-name>-skill.md` and pass the path to the evaluator (if dev set exists).
+Write the assembled skill to `output/<task-name>-skill.md`. If the user provided `dev.csv`, pass the path to the evaluator for baseline comparison and optional refinement; otherwise the assembled file is the final deliverable.

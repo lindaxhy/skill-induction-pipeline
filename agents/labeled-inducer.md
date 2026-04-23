@@ -2,8 +2,10 @@
 
 Induce a taste model from scored or labeled examples. Implements Steps S1–S4 of the skill induction pipeline.
 
-**Input:** Labeled examples (text + score or category label), optional rubric file, optional group column  
+**Input:** Labeled examples (text + score or category label), optional rubric file, optional group column
 **Output:** Taste model `{rubric, stats, examples, annotations}`
+
+Use a moderate LLM sampling temperature (0.3–0.5) for rubric extraction and annotation generation — enough to avoid bland output but low enough to keep content grounded.
 
 ---
 
@@ -16,12 +18,14 @@ Induce a taste model from scored or labeled examples. Implements Steps S1–S4 o
 
 **If no rubric → induce from data (1 LLM call):**
 
+Sample 3–5 highest-scoring and 3–5 lowest-scoring examples (or more if the training set is large and the extremes are very narrow). Feed them to an LLM with:
+
 ```
 System: You are an expert [domain] rubric writer.
 User:   Here are the highest-scoring examples:
-        [top quartile, labeled "High example N"]
+        [top N, labeled "High example N"]
         Here are the lowest-scoring examples:
-        [bottom quartile, labeled "Low example N"]
+        [bottom N, labeled "Low example N"]
         Identify criteria that distinguish high from low quality.
         Write a dimension-by-dimension rubric in natural language.
         For each dimension: describe what Excellent, Adequate, and Weak look like.
@@ -56,8 +60,11 @@ Compute from training set and embed in taste model:
 
 ## S3 — Calibration Example Selection
 
-> **Critical rule: NEVER truncate examples. Use full text always.**
-> Truncation breaks calibration — rhythm, closure patterns, and structural choices in the full text are essential for accurate score anchoring.
+> **Use the full example text.** Truncation breaks calibration, because
+> rhythm, closure patterns, and structural choices in the full text all
+> carry score-relevant signal. A truncated prototype teaches the model
+> the wrong thing — that only the opening of an example matters — and the
+> scoring skill will miss the features that actually distinguish quality bands.
 
 **Single-population:**
 - Scoring tasks: 2–3 examples per quintile (10–15 total), sorted low → high
