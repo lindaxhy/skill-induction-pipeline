@@ -15,7 +15,7 @@ The skill file is then used as a system prompt to outperform zero-shot baselines
 
 | Signal | You have... | Output skill type |
 |--------|-------------|-------------------|
-| **S** | Labeled examples (essays + scores, items + ratings) | Discriminative (scorer / classifier) |
+| **S** | Labeled examples (essays + scores, items + ratings) | Discriminative (scorer / classifier) or Generative |
 | **E** | Curated examples only — no numeric labels | Discriminative or Generative |
 
 ---
