@@ -144,17 +144,6 @@ scripts/
 
 ---
 
-## Validated Results
-
-| Task | Signal | Output | N | Zero-shot | Skill | Metric |
-|------|--------|--------|---|-----------|-------|--------|
-| Essay scoring (content) | S | Discriminative | 228 | 0.150 | 0.229 | QWK |
-| Essay scoring (total) | S | Discriminative | 228 | 0.188 | 0.280 | Pearson |
-| Resume quality scoring | S | Discriminative | 61 | 0.551 | 0.752 | Pearson |
-| Resume classification | S | Discriminative | 200 | 0.695 | 0.740 | Accuracy |
-
----
-
 ## Example Task: `tasks/percy-liang-abstract/`
 
 A Signal E generative task: learn the abstract writing style of Kotha–Kim–Liang's data-efficient pre-training research line.
